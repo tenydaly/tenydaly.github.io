@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <title>Kindle 专注桌面</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #fff; color: #111; font-family: Arial, "Microsoft YaHei", sans-serif; }
+    body { max-width: 900px; margin: 0 auto; padding: 20px 22px; background: #fff; }
+    button, input, textarea { color: #111; background: #fff; border: 1px solid #555; border-radius: 3px; font: inherit; }
+    .top { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; border-bottom: 2px solid #111; padding: 2px 0 14px; }
+    .identity { width: 42%; }
+    .eyebrow { font-size: 10px; font-weight: bold; letter-spacing: 3px; color: #555; margin-bottom: 8px; }
+    .date { font-family: Georgia, "Songti SC", serif; font-size: 18px; font-weight: bold; }
+    .weather { width: 34%; border-left: 1px solid #aaa; border-right: 1px solid #aaa; padding: 2px 16px; }
+    .weather-city { font-size: 13px; font-weight: bold; }
+    .weather-temp { font-family: Georgia, serif; font-size: 36px; font-weight: bold; }
+    .weather-word { margin-left: 7px; font-size: 15px; font-weight: bold; }
+    .weather-detail { font-size: 11px; line-height: 1.5; }
+    .timebox { width: 24%; text-align: right; }
+    .clock { font-family: Georgia, serif; font-size: 46px; font-weight: 900; line-height: 1; letter-spacing: -3px; margin: 2px 0; }
+    .greeting { font-size: 12px; font-weight: bold; }
+    .row { display: -webkit-flex; display: flex; gap: 0; margin-top: 16px; border-bottom: 1px solid #aaa; padding-bottom: 15px; }
+    .panel { border: 0; padding: 4px 14px; }
+    .timer-panel { width: 42%; text-align: center; border-right: 1px solid #aaa; }
+    .plan-panel { width: 58%; }
+    h2 { font-family: Georgia, "Songti SC", serif; font-size: 20px; margin: 0 0 10px; border: 0; padding-bottom: 5px; }
+    .timer-label { font-size: 17px; font-weight: bold; }
+    .timer { font-size: 48px; font-weight: 900; margin: 8px 0; }
+    .controls button { min-width: 72px; padding: 8px 5px; margin: 3px; font-weight: bold; }
+    .tasks { margin: 0; padding: 0; list-style: none; }
+    .tasks li { border-bottom: 1px solid #ccc; padding: 8px 0; font-size: 17px; line-height: 1.3; }
+    .tasks li:last-child { border-bottom: 0; }
+    .box { display: inline-block; width: 17px; height: 17px; margin-right: 9px; border: 1px solid #333; border-radius: 2px; vertical-align: -2px; }
+    .done { text-decoration: line-through; color: #555; }
+    .done .box { background: #000; box-shadow: inset 0 0 0 3px #fff; }
+    .bottom { display: -webkit-flex; display: flex; gap: 0; margin-top: 15px; }
+    .pet-panel { width: 34%; min-height: 165px; text-align: center; border-right: 1px solid #aaa; }
+    .note-panel { width: 66%; min-height: 165px; padding-left: 22px; }
+    .pet { width: 96px; height: 104px; margin: 6px auto 2px; background-image: url('cinnamoroll.webp'); background-repeat: no-repeat; background-size: 768px 936px; background-position: 0 0; -webkit-filter: grayscale(100%) contrast(118%); filter: grayscale(100%) contrast(118%); }
+    .pet-name { font-family: Georgia, "Songti SC", serif; font-size: 16px; font-weight: bold; }
+    .pet-state { font-size: 12px; font-weight: bold; margin-top: 2px; }
+    .quote { font-family: Georgia, "Songti SC", serif; font-size: 20px; font-weight: bold; line-height: 1.55; padding: 12px 2px 5px; }
+    .quote-from { text-align: right; font-size: 12px; letter-spacing: 1px; }
+    .credit { margin-top: 10px; font-size: 10px; color: #777; padding-top: 5px; }
+    .hint { margin-top: 12px; font-size: 13px; color: #333; }
+    .admin { display: none; margin-top: 22px; border-top: 2px solid #111; padding: 16px 0; }
+    .admin.visible { display: block; }
+    .admin input, .admin textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    .admin textarea { height: 70px; }
+    .admin button { padding: 9px 16px; margin: 5px 5px 0 0; font-weight: bold; }
+    .status { font-weight: bold; margin-left: 8px; }
+    @media (max-width: 620px) {
+      body { margin: 0; padding: 12px; }
+      .identity { width: 39%; }
+      .weather { width: 36%; padding: 2px 7px; }
+      .timebox { width: 25%; }
+      .brand { font-size: 25px; }
+      .clock { font-size: 38px; }
+      .weather-temp { font-size: 29px; }
+      .row, .bottom { gap: 0; margin-top: 10px; }
+      .panel { padding: 7px 9px; }
+      .tasks li { font-size: 15px; padding: 6px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="identity">
+      <div class="eyebrow">DAILY FOCUS · NO. 01</div>
+      <div id="date" class="date">正在同步日期…</div>
+    </div>
+    <div class="weather">
+      <div id="weatherCity" class="weather-city">天气载入中</div>
+      <div><span id="weatherTemp" class="weather-temp">--°</span><span id="weatherWord" class="weather-word">--</span></div>
+      <div id="weatherDetail" class="weather-detail">在管理页设置城市</div>
+    </div>
+    <div class="timebox">
+      <div id="clock" class="clock">--:--</div>
+      <div id="greeting" class="greeting">今天也要温柔而坚定。</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="row">
+      <section class="panel timer-panel">
+        <h2>番茄钟</h2>
+        <div id="timerLabel" class="timer-label">专注时间</div>
+        <div id="timer" class="timer">25:00</div>
+        <div class="controls">
+          <button id="toggleTimer" type="button">开始</button>
+          <button id="resetTimer" type="button">重置</button>
+          <button id="switchTimer" type="button">休息</button>
+        </div>
+      </section>
+
+      <section class="panel plan-panel">
+        <h2>今日计划</h2>
+        <ul id="tasks" class="tasks"><li>正在读取计划…</li></ul>
+      </section>
+    </div>
+
+    <div class="bottom">
+      <section class="panel pet-panel">
+        <h2>陪伴宠物</h2>
+        <div id="pet" class="pet"></div>
+        <div class="pet-name">玉桂狗</div>
+        <div id="petState" class="pet-state">等你开始</div>
+      </section>
+
+      <section class="panel note-panel">
+        <h2>今日一句</h2>
+        <div id="note" class="quote">正在收取今天的一言…</div>
+        <div id="quoteFrom" class="quote-from"></div>
+        <div class="credit">一言 · Hitokoto　/　天气 · Open-Meteo</div>
+      </section>
+    </div>
+
+    <section id="admin" class="admin">
+      <h2>电脑端管理</h2>
+      <label>计划（每行一项）</label>
+      <textarea id="taskEditor"></textarea>
+      <label>备用语录（接口不可用时显示）</label>
+      <input id="noteEditor" maxlength="240">
+      <label>天气城市</label>
+      <input id="cityEditor" maxlength="60" placeholder="例如：上海、杭州、西安">
+      <button id="save" type="button">保存并同步</button>
+      <button id="clearDone" type="button">清除完成项</button>
+      <button id="refreshQuote" type="button">换一句</button>
+      <button id="refreshWeather" type="button">刷新天气</button>
+      <span id="saveStatus" class="status"></span>
+    </section>
+  </main>
+
+  <script>
+  (function () {
+    var state = { tasks: [{ text: "阅读 PDF 30 分钟", done: false }, { text: "完成一次专注番茄钟", done: false }, { text: "整理明日计划", done: false }], note: "慢一点，也是在前进。", city: "上海", quote: {}, weather: {} };
+    var timerMode = "focus";
+    var totalSeconds = 25 * 60;
+    var running = false;
+    var lastTick = Date.now();
+    var petFrames = {
+      idle: [[0, 0], [1, 0]],
+      focus: [[2, 0], [3, 0]],
+      breaktime: [[0, 4], [1, 4]],
+      night: [[2, 5], [3, 5]]
+    };
+
+    function two(n) { return n < 10 ? "0" + n : String(n); }
+    function updateClock() {
+      var d = new Date();
+      document.getElementById("clock").innerHTML = two(d.getHours()) + ":" + two(d.getMinutes());
+      var days = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+      document.getElementById("date").innerHTML = d.getFullYear() + "." + two(d.getMonth() + 1) + "." + two(d.getDate()) + " · " + days[d.getDay()];
+      var h = d.getHours();
+      document.getElementById("greeting").innerHTML = h < 6 ? "夜深了，记得休息" : h < 12 ? "先完成最重要的事" : h < 18 ? "保持自己的节奏" : "为今天温柔收尾";
+    }
+
+    function timerText() { return two(Math.floor(totalSeconds / 60)) + ":" + two(totalSeconds % 60); }
+    function drawTimer() {
+      document.getElementById("timer").innerHTML = timerText();
+      document.getElementById("timerLabel").innerHTML = timerMode === "focus" ? "专注时间" : "休息时间";
+      document.getElementById("toggleTimer").innerHTML = running ? "暂停" : "开始";
+      document.getElementById("switchTimer").innerHTML = timerMode === "focus" ? "休息" : "专注";
+    }
+
+    function tickTimer() {
+      if (!running) return;
+      var now = Date.now();
+      var elapsed = Math.floor((now - lastTick) / 1000);
+      if (elapsed < 1) return;
+      lastTick += elapsed * 1000;
+      totalSeconds = Math.max(0, totalSeconds - elapsed);
+      drawTimer();
+      if (totalSeconds === 0) {
+        running = false;
+        alert(timerMode === "focus" ? "专注完成，休息一下吧。" : "休息结束，开始下一轮。 ");
+      }
+    }
+
+    function drawPet() {
+      var hour = new Date().getHours();
+      var kind = hour >= 23 || hour < 6 ? "night" : (running ? (timerMode === "focus" ? "focus" : "breaktime") : "idle");
+      var frames = petFrames[kind];
+      var frame = Math.floor(Date.now() / 15000) % frames.length;
+      var coords = frames[frame];
+      document.getElementById("pet").style.backgroundPosition = (-coords[0] * 96) + "px " + (-coords[1] * 104) + "px";
+      document.getElementById("petState").innerHTML = kind === "night" ? "晚安，做个好梦" : kind === "focus" ? "陪你认真专注" : kind === "breaktime" ? "一起放松一下" : "等你开始";
+    }
+
+    function renderTasks() {
+      var out = "";
+      for (var i = 0; i < state.tasks.length; i++) {
+        var task = state.tasks[i];
+        var safe = String(task.text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        out += '<li data-index="' + i + '" class="' + (task.done ? "done" : "") + '"><span class="box"></span>' + safe + "</li>";
+      }
+      document.getElementById("tasks").innerHTML = out || "<li>今天还没有计划</li>";
+      document.getElementById("taskEditor").value = state.tasks.map(function (x) { return x.text; }).join("\n");
+      document.getElementById("noteEditor").value = state.note || "";
+      document.getElementById("cityEditor").value = state.city || "";
+      var q = state.quote || {};
+      document.getElementById("note").textContent = q.text || state.note || "慢一点，也是在前进。";
+      document.getElementById("quoteFrom").textContent = q.from ? "—— " + (q.from_who ? q.from_who + " · " : "") + q.from : "";
+      var w = state.weather || {};
+      if (w.city) {
+        document.getElementById("weatherCity").textContent = w.city + (w.area && w.area !== w.city ? " · " + w.area : "");
+        document.getElementById("weatherTemp").textContent = w.temperature + "°";
+        document.getElementById("weatherWord").textContent = w.condition;
+        document.getElementById("weatherDetail").textContent = "体感 " + w.apparent + "° · " + w.low + "~" + w.high + "° · 降水 " + w.rain + "%";
+      } else {
+        document.getElementById("weatherCity").textContent = state.city ? state.city + " · 等待更新" : "未设置城市";
+        document.getElementById("weatherTemp").textContent = "--°";
+        document.getElementById("weatherWord").textContent = "--";
+        document.getElementById("weatherDetail").textContent = "请在管理页设置城市";
+      }
+    }
+
+    function loadData() {
+      try {
+        var cached = localStorage.getItem("kindle-focus-data");
+        if (cached) {
+          var saved = JSON.parse(cached);
+          state.tasks = saved.tasks || state.tasks;
+          state.note = saved.note || state.note;
+          state.city = saved.city || state.city;
+          state.quote = saved.quote || {};
+          state.weather = saved.weather || {};
+        }
+      } catch (e) {}
+      renderTasks();
+      refreshExternal("auto", "");
+    }
+
+    function saveData(message) {
+      try {
+        localStorage.setItem("kindle-focus-data", JSON.stringify(state));
+        document.getElementById("saveStatus").innerHTML = message || "已保存到本机";
+      } catch (e) {
+        document.getElementById("saveStatus").innerHTML = "保存失败";
+      }
+      setTimeout(function () { document.getElementById("saveStatus").innerHTML = ""; }, 2500);
+    }
+
+    function refreshExternal(kind, message) {
+      var now = new Date();
+      var today = now.getFullYear() + "-" + two(now.getMonth() + 1) + "-" + two(now.getDate());
+      var needQuote = kind === "quote" || kind === "all" || !state.quote.date || state.quote.date !== today;
+      var needWeather = kind === "weather" || kind === "all" || !state.weather.updated || Date.now() - state.weather.updated > 30 * 60 * 1000 || state.weather.query !== state.city;
+      if (kind !== "auto") document.getElementById("saveStatus").innerHTML = "正在更新…";
+      if (needQuote) {
+        var quoteXhr = new XMLHttpRequest();
+        quoteXhr.open("GET", "https://v1.hitokoto.cn/?encode=json&charset=utf-8&max_length=42&t=" + Date.now(), true);
+        quoteXhr.onreadystatechange = function () {
+          if (quoteXhr.readyState === 4 && quoteXhr.status === 200) {
+            try {
+              var q = JSON.parse(quoteXhr.responseText);
+              state.quote = { text: q.hitokoto, from: q.from, from_who: q.from_who || "", date: today };
+              renderTasks(); saveData(message || "今日一言已更新");
+            } catch (e) {}
+          }
+        };
+        quoteXhr.send();
+      }
+      if (needWeather && state.city) {
+        var geoXhr = new XMLHttpRequest();
+        geoXhr.open("GET", "https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(state.city) + "&count=1&language=zh&format=json", true);
+        geoXhr.onreadystatechange = function () {
+          if (geoXhr.readyState === 4 && geoXhr.status === 200) {
+            try {
+              var geo = JSON.parse(geoXhr.responseText), place = geo.results && geo.results[0];
+              if (!place) return;
+              var weatherXhr = new XMLHttpRequest();
+              weatherXhr.open("GET", "https://api.open-meteo.com/v1/forecast?latitude=" + place.latitude + "&longitude=" + place.longitude + "&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=1", true);
+              weatherXhr.onreadystatechange = function () {
+                if (weatherXhr.readyState === 4 && weatherXhr.status === 200) {
+                  try {
+                    var f = JSON.parse(weatherXhr.responseText), c = f.current || {}, d = f.daily || {};
+                    var names = { 0:"晴",1:"晴间多云",2:"多云",3:"阴",45:"有雾",48:"雾凇",51:"小毛毛雨",53:"毛毛雨",55:"强毛毛雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",80:"小阵雨",81:"阵雨",82:"强阵雨",85:"小阵雪",86:"强阵雪",95:"雷雨",96:"雷雨伴冰雹",99:"强雷雨伴冰雹" };
+                    state.weather = { query:state.city, city:place.name || state.city, area:place.admin1 || "", condition:names[c.weather_code] || "天气变化中", temperature:Math.round(c.temperature_2m || 0), apparent:Math.round(c.apparent_temperature || 0), high:Math.round((d.temperature_2m_max || [0])[0]), low:Math.round((d.temperature_2m_min || [0])[0]), rain:Math.round((d.precipitation_probability_max || [0])[0]), updated:Date.now() };
+                    renderTasks(); saveData(message || "天气已更新");
+                  } catch (e) {}
+                }
+              };
+              weatherXhr.send();
+            } catch (e) {}
+          }
+        };
+        geoXhr.send();
+      }
+    }
+
+    document.getElementById("toggleTimer").onclick = function () { running = !running; lastTick = Date.now(); drawTimer(); drawPet(); };
+    document.getElementById("resetTimer").onclick = function () { running = false; totalSeconds = (timerMode === "focus" ? 25 : 5) * 60; drawTimer(); drawPet(); };
+    document.getElementById("switchTimer").onclick = function () { running = false; timerMode = timerMode === "focus" ? "break" : "focus"; totalSeconds = (timerMode === "focus" ? 25 : 5) * 60; drawTimer(); drawPet(); };
+    document.getElementById("tasks").onclick = function (event) {
+      var node = event.target;
+      while (node && node.tagName !== "LI") node = node.parentNode;
+      if (!node || node.getAttribute("data-index") === null) return;
+      var idx = parseInt(node.getAttribute("data-index"), 10);
+      state.tasks[idx].done = !state.tasks[idx].done;
+      renderTasks(); saveData("完成状态已同步");
+    };
+    document.getElementById("save").onclick = function () {
+      var lines = document.getElementById("taskEditor").value.split(/\r?\n/);
+      var previous = {};
+      for (var i = 0; i < state.tasks.length; i++) previous[state.tasks[i].text] = state.tasks[i].done;
+      state.tasks = [];
+      for (var j = 0; j < lines.length && state.tasks.length < 12; j++) {
+        var text = lines[j].replace(/^\s+|\s+$/g, "");
+        if (text) state.tasks.push({ text: text, done: !!previous[text] });
+      }
+      state.note = document.getElementById("noteEditor").value;
+      state.city = document.getElementById("cityEditor").value.replace(/^\s+|\s+$/g, "");
+      renderTasks(); saveData("已保存到 Kindle 桌面");
+    };
+    document.getElementById("clearDone").onclick = function () { state.tasks = state.tasks.filter(function (x) { return !x.done; }); renderTasks(); saveData("已清除完成项"); };
+    document.getElementById("refreshQuote").onclick = function () { refreshExternal("quote", "已换一句"); };
+    document.getElementById("refreshWeather").onclick = function () { refreshExternal("weather", "天气已更新"); };
+
+    if (/[?&]admin=1(?:&|$)/.test(location.search)) document.getElementById("admin").className = "admin visible";
+    updateClock(); drawTimer(); drawPet(); loadData();
+    setInterval(updateClock, 30000);
+    setInterval(tickTimer, 1000);
+    setInterval(drawPet, 15000);
+    setInterval(function () { refreshExternal("auto", ""); }, 30 * 60 * 1000);
+  }());
+  </script>
+</body>
+</html>

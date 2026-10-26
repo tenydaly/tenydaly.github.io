@@ -29,6 +29,10 @@
     .timer-label { font-size: 17px; font-weight: bold; }
     .timer { font-size: 48px; font-weight: 900; margin: 8px 0; }
     .controls button { min-width: 72px; padding: 8px 5px; margin: 3px; font-weight: bold; }
+    .duration-settings { margin-top: 9px; font-size: 12px; }
+    .duration-line { margin: 4px 0; white-space: nowrap; }
+    .duration-line span { display: inline-block; width: 70px; text-align: center; font-weight: bold; }
+    .duration-line button { width: 28px; height: 27px; padding: 0; margin: 0 3px; font-size: 18px; font-weight: bold; }
     .tasks { margin: 0; padding: 0; list-style: none; }
     .tasks li { border-bottom: 1px solid #ccc; padding: 8px 0; font-size: 17px; line-height: 1.3; }
     .tasks li:last-child { border-bottom: 0; }
@@ -69,6 +73,7 @@
       .panel { padding: 7px 9px; }
       .timer-panel, .plan-panel, .pet-panel, .note-panel { min-height: 0; height: 100%; display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; -webkit-justify-content: center; justify-content: center; }
       .timer { font-size: 58px; margin: 12px 0; }
+      .duration-settings { margin-top: 7px; }
       .tasks { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; -webkit-justify-content: space-around; justify-content: space-around; }
       .tasks li { font-size: 16px; padding: 10px 0; }
       .pet-panel, .note-panel { padding-top: 2px; padding-bottom: 2px; }
@@ -105,6 +110,10 @@
           <button id="toggleTimer" type="button">开始</button>
           <button id="resetTimer" type="button">重置</button>
           <button id="switchTimer" type="button">休息</button>
+        </div>
+        <div class="duration-settings">
+          <div class="duration-line"><button id="focusDown" type="button" aria-label="减少专注时间">-</button><span>专注 <b id="focusMinutes">25</b> 分</span><button id="focusUp" type="button" aria-label="增加专注时间">+</button></div>
+          <div class="duration-line"><button id="breakDown" type="button" aria-label="减少休息时间">-</button><span>休息 <b id="breakMinutes">5</b> 分</span><button id="breakUp" type="button" aria-label="增加休息时间">+</button></div>
         </div>
       </section>
 
@@ -145,9 +154,9 @@
 
   <script>
   (function () {
-    var state = { tasks: [{ text: "阅读 PDF 30 分钟", done: false }, { text: "完成一次专注番茄钟", done: false }, { text: "整理明日计划", done: false }], note: "慢一点，也是在前进。", city: "上海", quote: {}, weather: {} };
+    var state = { tasks: [{ text: "阅读 PDF 30 分钟", done: false }, { text: "完成一次专注番茄钟", done: false }, { text: "整理明日计划", done: false }], note: "慢一点，也是在前进。", city: "上海", quote: {}, weather: {}, focusMinutes: 25, breakMinutes: 5 };
     var timerMode = "focus";
-    var totalSeconds = 25 * 60;
+    var totalSeconds = state.focusMinutes * 60;
     var running = false;
     var lastTick = Date.now();
     var petFrames = {
@@ -174,6 +183,18 @@
       document.getElementById("timerLabel").innerHTML = timerMode === "focus" ? "专注时间" : "休息时间";
       document.getElementById("toggleTimer").innerHTML = running ? "暂停" : "开始";
       document.getElementById("switchTimer").innerHTML = timerMode === "focus" ? "休息" : "专注";
+      document.getElementById("focusMinutes").innerHTML = state.focusMinutes;
+      document.getElementById("breakMinutes").innerHTML = state.breakMinutes;
+    }
+
+    function adjustDuration(kind, delta) {
+      var key = kind === "focus" ? "focusMinutes" : "breakMinutes";
+      var min = kind === "focus" ? 5 : 1;
+      var max = kind === "focus" ? 120 : 60;
+      state[key] = Math.max(min, Math.min(max, state[key] + delta));
+      if (!running && timerMode === kind) totalSeconds = state[key] * 60;
+      drawTimer();
+      saveData("时长已保存");
     }
 
     function tickTimer() {
@@ -238,8 +259,14 @@
           state.city = saved.city || state.city;
           state.quote = saved.quote || {};
           state.weather = saved.weather || {};
+          state.focusMinutes = parseInt(saved.focusMinutes, 10) || state.focusMinutes;
+          state.breakMinutes = parseInt(saved.breakMinutes, 10) || state.breakMinutes;
         }
       } catch (e) {}
+      state.focusMinutes = Math.max(5, Math.min(120, state.focusMinutes));
+      state.breakMinutes = Math.max(1, Math.min(60, state.breakMinutes));
+      if (!running) totalSeconds = (timerMode === "focus" ? state.focusMinutes : state.breakMinutes) * 60;
+      drawTimer();
       renderTasks();
       refreshExternal("auto", "");
     }
@@ -303,8 +330,12 @@
     }
 
     document.getElementById("toggleTimer").onclick = function () { running = !running; lastTick = Date.now(); drawTimer(); drawPet(); };
-    document.getElementById("resetTimer").onclick = function () { running = false; totalSeconds = (timerMode === "focus" ? 25 : 5) * 60; drawTimer(); drawPet(); };
-    document.getElementById("switchTimer").onclick = function () { running = false; timerMode = timerMode === "focus" ? "break" : "focus"; totalSeconds = (timerMode === "focus" ? 25 : 5) * 60; drawTimer(); drawPet(); };
+    document.getElementById("resetTimer").onclick = function () { running = false; totalSeconds = (timerMode === "focus" ? state.focusMinutes : state.breakMinutes) * 60; drawTimer(); drawPet(); };
+    document.getElementById("switchTimer").onclick = function () { running = false; timerMode = timerMode === "focus" ? "break" : "focus"; totalSeconds = (timerMode === "focus" ? state.focusMinutes : state.breakMinutes) * 60; drawTimer(); drawPet(); };
+    document.getElementById("focusDown").onclick = function () { adjustDuration("focus", -5); };
+    document.getElementById("focusUp").onclick = function () { adjustDuration("focus", 5); };
+    document.getElementById("breakDown").onclick = function () { adjustDuration("break", -1); };
+    document.getElementById("breakUp").onclick = function () { adjustDuration("break", 1); };
     document.getElementById("tasks").onclick = function (event) {
       var node = event.target;
       while (node && node.tagName !== "LI") node = node.parentNode;

@@ -41,7 +41,7 @@
     .done .box { background: #000; box-shadow: inset 0 0 0 3px #fff; }
     .bottom { display: -webkit-flex; display: flex; gap: 0; margin-top: 15px; }
     .pet-panel { width: 34%; min-height: 165px; text-align: center; border-right: 1px solid #aaa; }
-    .note-panel { width: 66%; min-height: 165px; padding-left: 22px; }
+    .note-panel { width: 66%; min-height: 165px; padding-left: 22px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
     .pet { width: 96px; height: 104px; margin: 6px auto 2px; background-image: url('cinnamoroll.webp'); background-repeat: no-repeat; background-size: 768px 936px; background-position: 0 0; -webkit-filter: grayscale(100%) contrast(118%); filter: grayscale(100%) contrast(118%); }
     .pet-name { font-family: Georgia, "Songti SC", serif; font-size: 16px; font-weight: bold; }
     .pet-state { font-size: 12px; font-weight: bold; margin-top: 2px; }
@@ -129,7 +129,7 @@
         <div id="petState" class="pet-state">等你开始</div>
       </section>
 
-      <section class="panel note-panel">
+      <section id="quotePanel" class="panel note-panel" role="button" aria-label="轻点更换每日一句">
         <h2>今日一句</h2>
         <div id="note" class="quote">正在收取今天的一言…</div>
         <div id="quoteFrom" class="quote-from"></div>
@@ -360,6 +360,7 @@
     document.getElementById("clearDone").onclick = function () { state.tasks = state.tasks.filter(function (x) { return !x.done; }); renderTasks(); saveData("已清除完成项"); };
     document.getElementById("refreshQuote").onclick = function () { refreshExternal("quote", "已换一句"); };
     document.getElementById("refreshWeather").onclick = function () { refreshExternal("weather", "天气已更新"); };
+    document.getElementById("quotePanel").onclick = function () { refreshExternal("quote", ""); };
 
     if (/[?&]admin=1(?:&|$)/.test(location.search)) document.getElementById("admin").className = "admin visible";
     updateClock(); drawTimer(); drawPet(); loadData();

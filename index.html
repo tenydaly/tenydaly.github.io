@@ -39,6 +39,9 @@
     .box { display: inline-block; width: 17px; height: 17px; margin-right: 9px; border: 1px solid #333; border-radius: 2px; vertical-align: -2px; cursor: pointer; }
     .task-text { display: inline-block; width: 85%; min-height: 22px; padding: 1px 3px; vertical-align: top; cursor: text; outline: 0; }
     .task-text:focus { background: #f3f3f3; outline: 1px dashed #777; text-decoration: none; color: #111; }
+    .task-more .box { visibility: hidden; }
+    .task-new:empty:before { content: attr(data-placeholder); color: #777; font-style: italic; }
+    .task-new:focus:empty:before { color: #aaa; }
     .done { text-decoration: line-through; color: #555; }
     .done .box { background: #000; box-shadow: inset 0 0 0 3px #fff; }
     .bottom { display: -webkit-flex; display: flex; gap: 0; margin-top: 15px; }
@@ -230,7 +233,8 @@
         var safe = String(task.text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         out += '<li data-index="' + i + '" class="' + (task.done ? "done" : "") + '"><span class="box" role="checkbox" aria-checked="' + (task.done ? "true" : "false") + '"></span><span class="task-text" contenteditable="true" spellcheck="false">' + safe + "</span></li>";
       }
-      document.getElementById("tasks").innerHTML = out || "<li>今天还没有计划</li>";
+      out += '<li class="task-more"><span class="box" aria-hidden="true"></span><span class="task-text task-new" contenteditable="true" spellcheck="false" data-placeholder="more"></span></li>';
+      document.getElementById("tasks").innerHTML = out;
       document.getElementById("taskEditor").value = state.tasks.map(function (x) { return x.text; }).join("\n");
       document.getElementById("noteEditor").value = state.note || "";
       document.getElementById("cityEditor").value = state.city || "";
@@ -264,6 +268,18 @@
 
     function syncTaskEditor() {
       document.getElementById("taskEditor").value = state.tasks.map(function (x) { return x.text; }).join("\n");
+    }
+
+    function saveNewTask(node) {
+      var text = cleanTaskText(node.textContent || node.innerText);
+      if (!text) {
+        node.innerHTML = "";
+        return;
+      }
+
+      state.tasks.push({ text: text, done: false });
+      renderTasks();
+      saveData("新任务已添加");
     }
 
     function saveEditedTask(node, finalEdit) {
@@ -401,7 +417,9 @@
 
     taskList.oninput = function (event) {
       var target = event.target || event.srcElement;
-      if (target && /(^|\s)task-text(\s|$)/.test(target.className || "")) scheduleTaskSave(target);
+      if (!target || !/(^|\s)task-text(\s|$)/.test(target.className || "")) return;
+      if (/(^|\s)task-new(\s|$)/.test(target.className || "")) return;
+      scheduleTaskSave(target);
     };
 
     taskList.onkeydown = function (event) {
@@ -422,7 +440,12 @@
       if (!target || !/(^|\s)task-text(\s|$)/.test(target.className || "")) return;
       if (taskSaveTimer) clearTimeout(taskSaveTimer);
       taskSaveTimer = null;
-      saveEditedTask(target, true);
+
+      if (/(^|\s)task-new(\s|$)/.test(target.className || "")) {
+        saveNewTask(target);
+      } else {
+        saveEditedTask(target, true);
+      }
     }, true);
     document.getElementById("save").onclick = function () {
       var lines = document.getElementById("taskEditor").value.split(/\r?\n/);

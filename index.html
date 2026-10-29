@@ -36,7 +36,9 @@
     .tasks { margin: 0; padding: 0; list-style: none; }
     .tasks li { border-bottom: 1px solid #ccc; padding: 8px 0; font-size: 17px; line-height: 1.3; }
     .tasks li:last-child { border-bottom: 0; }
-    .box { display: inline-block; width: 17px; height: 17px; margin-right: 9px; border: 1px solid #333; border-radius: 2px; vertical-align: -2px; }
+    .box { display: inline-block; width: 17px; height: 17px; margin-right: 9px; border: 1px solid #333; border-radius: 2px; vertical-align: -2px; cursor: pointer; }
+    .task-text { display: inline-block; width: 85%; min-height: 22px; padding: 1px 3px; vertical-align: top; cursor: text; outline: 0; }
+    .task-text:focus { background: #f3f3f3; outline: 1px dashed #777; text-decoration: none; color: #111; }
     .done { text-decoration: line-through; color: #555; }
     .done .box { background: #000; box-shadow: inset 0 0 0 3px #fff; }
     .bottom { display: -webkit-flex; display: flex; gap: 0; margin-top: 15px; }
@@ -226,7 +228,7 @@
       for (var i = 0; i < state.tasks.length; i++) {
         var task = state.tasks[i];
         var safe = String(task.text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        out += '<li data-index="' + i + '" class="' + (task.done ? "done" : "") + '"><span class="box"></span>' + safe + "</li>";
+        out += '<li data-index="' + i + '" class="' + (task.done ? "done" : "") + '"><span class="box" role="checkbox" aria-checked="' + (task.done ? "true" : "false") + '"></span><span class="task-text" contenteditable="true" spellcheck="false">' + safe + "</span></li>";
       }
       document.getElementById("tasks").innerHTML = out || "<li>今天还没有计划</li>";
       document.getElementById("taskEditor").value = state.tasks.map(function (x) { return x.text; }).join("\n");
@@ -247,6 +249,54 @@
         document.getElementById("weatherWord").textContent = "--";
         document.getElementById("weatherDetail").textContent = "请在管理页设置城市";
       }
+    }
+
+    var taskSaveTimer = null;
+
+    function taskItemFromNode(node) {
+      while (node && node.tagName !== "LI") node = node.parentNode;
+      return node;
+    }
+
+    function cleanTaskText(text) {
+      return String(text || "").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+    }
+
+    function syncTaskEditor() {
+      document.getElementById("taskEditor").value = state.tasks.map(function (x) { return x.text; }).join("\n");
+    }
+
+    function saveEditedTask(node, finalEdit) {
+      var item = taskItemFromNode(node);
+      if (!item || item.getAttribute("data-index") === null) return;
+      var idx = parseInt(item.getAttribute("data-index"), 10);
+      if (!state.tasks[idx]) return;
+
+      var text = cleanTaskText(node.textContent || node.innerText);
+      if (!text) {
+        if (finalEdit) {
+          state.tasks.splice(idx, 1);
+          renderTasks();
+          saveData("空任务已删除");
+        }
+        return;
+      }
+
+      state.tasks[idx].text = text;
+      syncTaskEditor();
+      if (finalEdit) {
+        node.textContent = text;
+        saveData("任务已自动保存");
+      }
+    }
+
+    function scheduleTaskSave(node) {
+      if (taskSaveTimer) clearTimeout(taskSaveTimer);
+      taskSaveTimer = setTimeout(function () {
+        if (!node || !node.parentNode) return;
+        saveEditedTask(node, false);
+        saveData("任务已自动保存");
+      }, 600);
     }
 
     function loadData() {
@@ -336,14 +386,44 @@
     document.getElementById("focusUp").onclick = function () { adjustDuration("focus", 5); };
     document.getElementById("breakDown").onclick = function () { adjustDuration("break", -1); };
     document.getElementById("breakUp").onclick = function () { adjustDuration("break", 1); };
-    document.getElementById("tasks").onclick = function (event) {
-      var node = event.target;
-      while (node && node.tagName !== "LI") node = node.parentNode;
+    var taskList = document.getElementById("tasks");
+
+    taskList.onclick = function (event) {
+      var target = event.target || event.srcElement;
+      if (!target || !/(^|\s)box(\s|$)/.test(target.className || "")) return;
+      var node = taskItemFromNode(target);
       if (!node || node.getAttribute("data-index") === null) return;
       var idx = parseInt(node.getAttribute("data-index"), 10);
       state.tasks[idx].done = !state.tasks[idx].done;
-      renderTasks(); saveData("完成状态已同步");
+      renderTasks();
+      saveData("完成状态已同步");
     };
+
+    taskList.oninput = function (event) {
+      var target = event.target || event.srcElement;
+      if (target && /(^|\s)task-text(\s|$)/.test(target.className || "")) scheduleTaskSave(target);
+    };
+
+    taskList.onkeydown = function (event) {
+      event = event || window.event;
+      var target = event.target || event.srcElement;
+      if (!target || !/(^|\s)task-text(\s|$)/.test(target.className || "")) return;
+      if (event.keyCode === 13) {
+        if (event.preventDefault) event.preventDefault();
+        event.returnValue = false;
+        target.blur();
+      } else if (event.keyCode === 27) {
+        renderTasks();
+      }
+    };
+
+    taskList.addEventListener("blur", function (event) {
+      var target = event.target;
+      if (!target || !/(^|\s)task-text(\s|$)/.test(target.className || "")) return;
+      if (taskSaveTimer) clearTimeout(taskSaveTimer);
+      taskSaveTimer = null;
+      saveEditedTask(target, true);
+    }, true);
     document.getElementById("save").onclick = function () {
       var lines = document.getElementById("taskEditor").value.split(/\r?\n/);
       var previous = {};

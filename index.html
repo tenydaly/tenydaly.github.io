@@ -170,6 +170,8 @@
       breaktime: [[0, 4], [1, 4]],
       night: [[2, 5], [3, 5]]
     };
+    var quoteRequest = null;
+    var quoteRequestGeneration = 0;
 
     function two(n) { return n < 10 ? "0" + n : String(n); }
     function beijingNow() { return new Date(Date.now() + 8 * 60 * 60 * 1000); }
@@ -240,7 +242,8 @@
       document.getElementById("cityEditor").value = state.city || "";
       var q = state.quote || {};
       document.getElementById("note").textContent = q.text || state.note || "慢一点，也是在前进。";
-      document.getElementById("quoteFrom").textContent = q.from ? "—— " + (q.from_who ? q.from_who + " · " : "") + q.from : "";
+      var quoteCredit = q.from ? (q.from_who ? q.from_who + " · " : "") + q.from : (q.from_who || "");
+      document.getElementById("quoteFrom").textContent = quoteCredit ? "—— " + quoteCredit + (q.source_account ? " · @" + q.source_account : "") : "";
       var w = state.weather || {};
       if (w.city) {
         document.getElementById("weatherCity").textContent = w.city + (w.area && w.area !== w.city ? " · " + w.area : "");
@@ -350,22 +353,77 @@
     function refreshExternal(kind, message) {
       var now = beijingNow();
       var today = now.getUTCFullYear() + "-" + two(now.getUTCMonth() + 1) + "-" + two(now.getUTCDate());
-      var needQuote = kind === "quote" || kind === "all" || !state.quote.date || state.quote.date !== today;
+      var needQuote = kind === "quote" || kind === "all" || !state.quote.date || state.quote.date !== today || state.quote.source_account !== "一言App";
       var needWeather = kind === "weather" || kind === "all" || !state.weather.updated || Date.now() - state.weather.updated > 30 * 60 * 1000 || state.weather.query !== state.city;
       if (kind !== "auto") document.getElementById("saveStatus").innerHTML = "正在更新…";
       if (needQuote) {
-        var quoteXhr = new XMLHttpRequest();
-        quoteXhr.open("GET", "https://v1.hitokoto.cn/?encode=json&charset=utf-8&max_length=42&t=" + Date.now(), true);
-        quoteXhr.onreadystatechange = function () {
-          if (quoteXhr.readyState === 4 && quoteXhr.status === 200) {
-            try {
-              var q = JSON.parse(quoteXhr.responseText);
-              state.quote = { text: q.hitokoto, from: q.from, from_who: q.from_who || "", date: today };
-              renderTasks(); saveData(message || "今日一言已更新");
-            } catch (e) {}
+        quoteRequestGeneration += 1;
+        var quoteGeneration = quoteRequestGeneration;
+        if (quoteRequest) {
+          try { quoteRequest.abort(); } catch (e) {}
+        }
+
+        var quoteFinished = false;
+        function quoteFailed(reason) {
+          if (quoteFinished || quoteGeneration !== quoteRequestGeneration) return;
+          quoteFinished = true;
+          quoteRequest = null;
+          renderTasks();
+          if (kind !== "auto") {
+            document.getElementById("saveStatus").textContent = reason + "，继续显示上次内容";
+            setTimeout(function () { document.getElementById("saveStatus").textContent = ""; }, 3000);
+          }
+        }
+
+        quoteRequest = new XMLHttpRequest();
+        quoteRequest.open("GET", "quotes/yiyanapp.json?t=" + Date.now(), true);
+        quoteRequest.timeout = 10000;
+        quoteRequest.onreadystatechange = function () {
+          if (quoteRequest.readyState !== 4 || quoteFinished || quoteGeneration !== quoteRequestGeneration) return;
+          if (quoteRequest.status < 200 || quoteRequest.status >= 300) {
+            quoteFailed("官方一言暂时无法读取");
+            return;
+          }
+
+          try {
+            var archive = JSON.parse(quoteRequest.responseText);
+            var quotes = (archive.quotes || []).filter(function (item) {
+              return item && item.text && item.text.length <= 120;
+            });
+            if (!quotes.length) throw new Error("empty archive");
+
+            var selectedIndex = 0;
+            if (kind === "quote" && state.quote && state.quote.id) {
+              for (var qi = 0; qi < quotes.length; qi++) {
+                if (quotes[qi].id === state.quote.id) {
+                  selectedIndex = (qi + 1) % quotes.length;
+                  break;
+                }
+              }
+            }
+
+            var official = quotes[selectedIndex];
+            state.quote = {
+              id: official.id || "",
+              text: official.text,
+              from: official.from || "",
+              from_who: official.from_who || "",
+              source_account: "一言App",
+              source_url: official.source_url || "",
+              source_date: official.date || "",
+              date: today
+            };
+            quoteFinished = true;
+            quoteRequest = null;
+            renderTasks();
+            saveData(message || (kind === "quote" ? "已换一条官方语录" : "今日官方一言已更新"));
+          } catch (e) {
+            quoteFailed("官方一言内容异常");
           }
         };
-        quoteXhr.send();
+        quoteRequest.onerror = function () { quoteFailed("官方一言网络请求失败"); };
+        quoteRequest.ontimeout = function () { quoteFailed("官方一言请求超时"); };
+        quoteRequest.send();
       }
       if (needWeather && state.city) {
         var geoXhr = new XMLHttpRequest();

@@ -14,10 +14,20 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 UID = "5581983697"
 API = "https://m.weibo.cn/api/container/getIndex"
+DESKTOP_API = "https://weibo.com/ajax/statuses/mymblog"
+RSS_FEEDS = (
+    "https://rsshub.app/weibo/timeline/" + UID,
+    "https://rsshub.app/weibo/user/" + UID,
+    "https://r55hub.zeabur.app/weibo/timeline/" + UID,
+    "https://r55hub.zeabur.app/weibo/user/" + UID,
+    "https://kayin.zeabur.app/weibo/user/" + UID,
+    "https://rsshub.rssforever.com/weibo/user/" + UID,
+)
 BEIJING = dt.timezone(dt.timedelta(hours=8))
 ATTRIBUTION_RE = re.compile(r"^[｜|]\s*(.+?)(?:《(.+?)》)?\s*$")
 TAG_RE = re.compile(r"#.*?#")
@@ -25,7 +35,8 @@ HTML_RE = re.compile(r"<[^>]+>")
 
 
 def clean_text(value):
-    value = html.unescape(HTML_RE.sub("", value or ""))
+    value = re.sub(r"(?i)<br\s*/?>|</p\s*>", "\n", value or "")
+    value = html.unescape(HTML_RE.sub("", value))
     value = value.replace("\u200b", "").replace("\ufeff", "")
     lines = [re.sub(r"\s+", " ", line).strip() for line in value.splitlines()]
     return "\n".join(line for line in lines if line)
@@ -92,12 +103,89 @@ def fetch_page(page, cookie):
     }
     if cookie:
         headers["Cookie"] = cookie
+    errors = []
     request = urllib.request.Request(API + "?" + params, headers=headers)
-    with urllib.request.urlopen(request, timeout=20) as response:
-        payload = json.load(response)
-    if not payload.get("ok"):
-        raise RuntimeError("Weibo returned ok=%r on page %s" % (payload.get("ok"), page))
-    return payload.get("data", {}).get("cards", [])
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            body = response.read().decode("utf-8", "replace")
+        payload = json.loads(body)
+        if payload.get("ok"):
+            return payload.get("data", {}).get("cards", [])
+        errors.append("mobile ok=%r" % payload.get("ok"))
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+        errors.append("mobile: %s" % error)
+
+    desktop_params = urllib.parse.urlencode({"uid": UID, "page": page, "feature": 0})
+    desktop_headers = dict(headers)
+    desktop_headers["Referer"] = "https://weibo.com/u/" + UID
+    desktop_headers["X-Requested-With"] = "XMLHttpRequest"
+    request = urllib.request.Request(DESKTOP_API + "?" + desktop_params, headers=desktop_headers)
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            body = response.read().decode("utf-8", "replace")
+        payload = json.loads(body)
+        statuses = payload.get("data", {}).get("list", [])
+        if statuses:
+            return [{"mblog": status} for status in statuses]
+        errors.append("desktop returned no statuses")
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+        errors.append("desktop: %s" % error)
+
+    raise RuntimeError("; ".join(errors))
+
+
+def quote_from_rss_item(item):
+    title = clean_text(item.findtext("title") or "")
+    description = clean_text(item.findtext("description") or "")
+    raw = description if "｜" in description else title
+    lines = raw.splitlines()
+    attr_index = -1
+    attr_match = None
+    for index in range(len(lines) - 1, -1, -1):
+        match = ATTRIBUTION_RE.match(lines[index])
+        if match:
+            attr_index, attr_match = index, match
+            break
+    if attr_index < 1:
+        return None
+    body = "\n".join(lines[:attr_index]).strip()
+    if not body or len(body) < 8 or len(body) > 360:
+        return None
+    author = attr_match.group(1).strip(" —-·")
+    work = (attr_match.group(2) or "").strip()
+    link = (item.findtext("link") or "").strip()
+    guid = (item.findtext("guid") or link).strip()
+    bid = link.rstrip("/").split("/")[-1] if link else ""
+    created = parse_created_at(item.findtext("pubDate"))
+    return {
+        "id": bid or hashlib.sha256(guid.encode("utf-8")).hexdigest()[:16],
+        "text": body,
+        "from_who": author,
+        "from": "《" + work + "》" if work else "",
+        "date": created.date().isoformat(),
+        "published_at": created.isoformat(),
+        "source_account": "一言App",
+        "source_url": link or "https://weibo.com/u/" + UID,
+    }
+
+
+def fetch_rss_quotes():
+    errors = []
+    for feed in RSS_FEEDS:
+        request = urllib.request.Request(feed, headers={"User-Agent": "Mozilla/5.0 quote-archive/1.0"})
+        try:
+            with urllib.request.urlopen(request, timeout=25) as response:
+                body = response.read()
+            root = ET.fromstring(body)
+            quotes = [quote_from_rss_item(item) for item in root.findall(".//item")]
+            quotes = [quote for quote in quotes if quote]
+            if quotes:
+                print("Using RSS fallback: %s" % feed)
+                return quotes
+            errors.append("%s returned no quote items" % feed)
+        except (urllib.error.URLError, TimeoutError, ET.ParseError) as error:
+            errors.append("%s: %s" % (feed, error))
+    raise RuntimeError("; ".join(errors))
 
 
 def load_archive(path):
@@ -127,7 +215,12 @@ def main():
             cards = fetch_page(page, cookie)
         except (urllib.error.URLError, TimeoutError, RuntimeError, json.JSONDecodeError) as error:
             if page == 1:
-                raise RuntimeError("cannot fetch @一言App: %s" % error) from error
+                print("Direct Weibo fetch failed: %s" % error, file=sys.stderr)
+                for quote in fetch_rss_quotes():
+                    if quote["id"] not in known:
+                        known.add(quote["id"])
+                        added.append(quote)
+                break
             print("Stopped after page %s: %s" % (page - 1, error), file=sys.stderr)
             break
         found = 0

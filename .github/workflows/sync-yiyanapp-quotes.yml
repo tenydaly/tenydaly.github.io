@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/sync-yiyanapp-quotes.yml"
+      - "scripts/sync_yiyanapp_quotes.py"
   schedule:
     - cron: "30 3 * * *"
     - cron: "30 12 * * *"

@@ -1,6 +1,11 @@
 name: Sync official YiyanApp quotes
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/sync-yiyanapp-quotes.yml"
   schedule:
     - cron: "30 3 * * *"
     - cron: "30 12 * * *"
@@ -29,7 +34,7 @@ jobs:
       - name: Fetch official quote posts
         env:
           WEIBO_COOKIE: ${{ secrets.WEIBO_COOKIE }}
-          SYNC_PAGES: ${{ github.event_name == 'workflow_dispatch' && inputs.pages || '4' }}
+          SYNC_PAGES: ${{ github.event_name == 'workflow_dispatch' && inputs.pages || github.event_name == 'push' && '40' || '4' }}
         run: python scripts/sync_yiyanapp_quotes.py --pages "$SYNC_PAGES"
       - name: Commit archive updates
         run: |

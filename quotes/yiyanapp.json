@@ -1,8 +1,48 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-10-31T04:33:07Z",
+  "updated_at": "2026-10-31T17:19:07Z",
   "quotes": [
+    {
+      "id": "RpgUVr6cs",
+      "text": "摆脱了行星那无尽循环的振荡，\n在时间浅蓝色的中心呼吸着他青铜的呼吸。",
+      "from_who": "华莱士·史蒂文斯",
+      "from": "《这大瀑布的孤独》",
+      "date": "2026-11-01",
+      "published_at": "2026-11-01T00:00:40+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpgUVr6cs"
+    },
+    {
+      "id": "Rpfxrwyaf",
+      "text": "穿越痛苦的唯一途径是经历它，吸收它，探索它，确切地理解它是什么以及它意味着什么，我想起了过去这一年我遭受过太多的精神创痛。将痛苦拒之门外就是丧失了成长的机会，不是吗？",
+      "from_who": "梅·萨藤",
+      "from": "《独居笔记》",
+      "date": "2026-10-31",
+      "published_at": "2026-10-31T20:30:04+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rpfxrwyaf"
+    },
+    {
+      "id": "RpdLUurPa",
+      "text": "我们在死胡同中寻找的答案和办法，总会由生命的偶然、由不容置疑且不可预见的时间转角为我们带来。",
+      "from_who": "穆蒂斯",
+      "from": "《马克洛尔的奇遇与厄运》",
+      "date": "2026-10-31",
+      "published_at": "2026-10-31T16:00:13+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpdLUurPa"
+    },
+    {
+      "id": "RpcZt8Qit",
+      "text": "明知单向性的时间无法停止，\n依旧不断地自我破坏、自我重建，\n像西西弗斯那样不断重复着看似无意义的行动。\n那就是活着。",
+      "from_who": "坂本龙一",
+      "from": "《音乐与生命》",
+      "date": "2026-10-31",
+      "published_at": "2026-10-31T14:00:52+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpcZt8Qit"
+    },
     {
       "id": "RpccDtMtC",
       "text": "因此我要向前走，虽然犹豫不决，但却意满志得；虽然对难以忍受的痛苦顾虑重重；然而我却感到，在历险的道路上，我一定会在经过巨大磨难之后战胜一切；毫无疑问，最后，我一定能够找到我所渴望的目标。",

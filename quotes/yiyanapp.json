@@ -1,8 +1,28 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-02T11:32:19Z",
+  "updated_at": "2026-11-02T21:50:39Z",
   "quotes": [
+    {
+      "id": "RpzLEz2Uy",
+      "text": "我知道，冬天是最好的\n纯色的树木纤细，硬朗，不再多说\n人们变得聪明\n晴和，警觉，像一块玉\n深深的刻痕\n慢下来的眼睛",
+      "from_who": "包慧怡",
+      "from": "《复调》",
+      "date": "2026-11-03",
+      "published_at": "2026-11-03T00:00:01+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpzLEz2Uy"
+    },
+    {
+      "id": "RpyotzddO",
+      "text": "如果一味地只是遭受攻击不反抗，我们就只能止步不前。慢性的无力感是会腐蚀人的。",
+      "from_who": "村上春树",
+      "from": "《1Q84》",
+      "date": "2026-11-02",
+      "published_at": "2026-11-02T20:30:10+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpyotzddO"
+    },
     {
       "id": "RpwD4z7iP",
       "text": "天生喜欢离群索居，而又能说会道，一方面不愿与人交接，另方面又巴不得找个人谈谈天，结果就只好对自己瞎聊了。凡是过惯孤独生活的人都懂得独语是很自然的事情。",

@@ -1,8 +1,28 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-03T11:11:29Z",
+  "updated_at": "2026-11-03T19:41:17Z",
   "quotes": [
+    {
+      "id": "RpJc9rcGe",
+      "text": "他曾将自己神奇的想象\n丢失在无垠的白色\n雪花、晚香玉和盐矿。",
+      "from_who": "洛尔迦",
+      "from": "《胡安·拉蒙·希梅内斯》",
+      "date": "2026-11-04",
+      "published_at": "2026-11-04T00:00:01+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpJc9rcGe"
+    },
+    {
+      "id": "RpHP1mtq3",
+      "text": "如果她死了，那么这世上的一切都完了。他们可拿走一切，拆下星星，卷起天空，然后放上货车，也可以熄灭我最喜爱的阳光。知道我为什么那么喜欢阳光？因为我爱在阳光底下的她。",
+      "from_who": "电影",
+      "from": "《爱你如诗美丽》",
+      "date": "2026-11-03",
+      "published_at": "2026-11-03T20:30:17+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpHP1mtq3"
+    },
     {
       "id": "RpG3unFA3",
       "text": "我们处在这样一个宇宙之中，在其中，信息越来越多，而意义越来越少。",

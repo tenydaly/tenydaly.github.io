@@ -1,8 +1,58 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-04T19:56:47Z",
+  "updated_at": "2026-11-05T11:20:16Z",
   "quotes": [
+    {
+      "id": "RpYUxkFK5",
+      "text": "这正是内在生活的巨大优点：它允许每个人在所有人中最爱自己。",
+      "from_who": "西蒙娜·德·波伏瓦",
+      "from": "",
+      "date": "2026-11-05",
+      "published_at": "2026-11-05T16:00:34+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpYUxkFK5"
+    },
+    {
+      "id": "RpYbJnc4r",
+      "text": "亲爱的读者，\n你试图回忆的不是秋天而是自由。",
+      "from_who": "安妮·卡森",
+      "from": "",
+      "date": "2026-11-05",
+      "published_at": "2026-11-05T14:10:11+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpYbJnc4r"
+    },
+    {
+      "id": "RpXxY71sG",
+      "text": "有一天，你将会被某人爱着，你可以向他展示自己的脆弱，而他并不会利用这种脆弱来彰显自己的力量。",
+      "from_who": "《纸上孤岛》",
+      "from": "",
+      "date": "2026-11-05",
+      "published_at": "2026-11-05T12:32:13+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpXxY71sG"
+    },
+    {
+      "id": "RpWCmu5Ws",
+      "text": "小的时候，你渴望长大，自己决定一切。可是一旦长大，你就会意识到，“做决定”是成年人所要面对的最可怕的任务。",
+      "from_who": "弗雷德里克·巴克曼",
+      "from": "",
+      "date": "2026-11-05",
+      "published_at": "2026-11-05T10:10:18+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpWCmu5Ws"
+    },
+    {
+      "id": "RpVXZ5KRh",
+      "text": "让每一天过得有价值，学着热爱生活。\n告诉自己要活着，尤其这一刻我活着，\n这就够了，这比想象的更具有生命意义。",
+      "from_who": "赫塔·米勒",
+      "from": "《每一句话语都坐着别的眼睛》",
+      "date": "2026-11-05",
+      "published_at": "2026-11-05T08:30:49+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RpVXZ5KRh"
+    },
     {
       "id": "RpSCV7MbB",
       "text": "但我问自己：这个世界配让我感到后悔吗？",

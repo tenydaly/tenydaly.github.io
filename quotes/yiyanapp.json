@@ -1,8 +1,28 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-05T11:20:16Z",
+  "updated_at": "2026-11-05T20:10:41Z",
   "quotes": [
+    {
+      "id": "Rq23v3vCy",
+      "text": "“只剩下此刻了，只有此刻。衣衫会破，锚会生锈，而我们只有继续前行。”",
+      "from_who": "《黑球》",
+      "from": "",
+      "date": "2026-11-06",
+      "published_at": "2026-11-06T00:00:53+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rq23v3vCy"
+    },
+    {
+      "id": "Rq0FTF3nG",
+      "text": "如果此刻，你来敲我的门呢，如果月色刚刚好呢\n好到我恰恰见过的程度\n我们都在腐朽，下一刻无法挽回了\n该怎么给你呢，你还是比这一切都鲜活",
+      "from_who": "余秀华",
+      "from": "《嘲弄》",
+      "date": "2026-11-05",
+      "published_at": "2026-11-05T20:30:00+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rq0FTF3nG"
+    },
     {
       "id": "RpYUxkFK5",
       "text": "这正是内在生活的巨大优点：它允许每个人在所有人中最爱自己。",

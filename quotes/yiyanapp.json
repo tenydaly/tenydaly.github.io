@@ -1,8 +1,58 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-06T19:36:41Z",
+  "updated_at": "2026-11-07T10:32:15Z",
   "quotes": [
+    {
+      "id": "RqhLAAnut",
+      "text": "要是由着我，我真想一整天什么都不干，就只管吃东西。\n可因为没钱整日吃个不停，我就只能不停地睡觉。",
+      "from_who": "契诃夫",
+      "from": "《契诃夫书信集》",
+      "date": "2026-11-07",
+      "published_at": "2026-11-07T16:00:43+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqhLAAnut"
+    },
+    {
+      "id": "RqgYCmj0Y",
+      "text": "温柔是自发的、无私的，远远超越了作为移情的共情。它是一种有意识的、也许有点忧郁的命运共享。温柔是对另一种存在的深切关注，关注它的脆弱、它的独一无二、它对痛苦和时间的不可抵抗。",
+      "from_who": "奥尔加·托卡尔丘克",
+      "from": "《温柔的讲述者》",
+      "date": "2026-11-07",
+      "published_at": "2026-11-07T14:00:04+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqgYCmj0Y"
+    },
+    {
+      "id": "Rqgc5FgQ3",
+      "text": "我的一部分被你拾起，就有了\n水的性质",
+      "from_who": "余秀华",
+      "from": "《漂流瓶》",
+      "date": "2026-11-07",
+      "published_at": "2026-11-07T12:00:31+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rqgc5FgQ3"
+    },
+    {
+      "id": "RqftuuGF8",
+      "text": "我始终直觉，人与自己订有极其重要的契约，必须保持自我，又能容受万物，独立自强，凭借与此一星球的偶然遇合，随机应变，又像猎犬一般执着，不离不弃。",
+      "from_who": "E.B.怀特",
+      "from": "《人各有异》",
+      "date": "2026-11-07",
+      "published_at": "2026-11-07T10:10:38+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqftuuGF8"
+    },
+    {
+      "id": "RqeP2mysQ",
+      "text": "我只是一片朝霞，\n漫无目的，疏忽即逝。\n当我孤独地盛开时，\n世界还在沉睡。",
+      "from_who": "弗里德里希·荷尔德林",
+      "from": "",
+      "date": "2026-11-07",
+      "published_at": "2026-11-07T08:30:58+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqeP2mysQ"
+    },
     {
       "id": "RqbtUy1sb",
       "text": "我们永远只能在具有悲剧天性的人身上发现感情的深度。",

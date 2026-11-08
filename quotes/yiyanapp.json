@@ -1,8 +1,58 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-07T17:48:31Z",
+  "updated_at": "2026-11-08T10:40:13Z",
   "quotes": [
+    {
+      "id": "RqrbPu0r4",
+      "text": "你说你还不够成熟；\n那你是要等到腐烂吗？",
+      "from_who": "儒勒·勒纳尔",
+      "from": "",
+      "date": "2026-11-08",
+      "published_at": "2026-11-08T16:00:05+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqrbPu0r4"
+    },
+    {
+      "id": "RqqpdpA1n",
+      "text": "这个世界上有你想要做的事情，与你必须做的事情；有你以为的自己，与你在这样一个夜晚成为的自己——在马德里昏暗喧哗的街上，跟随着你的脚步，走向它应去的地方。",
+      "from_who": "保拉·麦克莱恩",
+      "from": "《我不可能只是仰望你》",
+      "date": "2026-11-08",
+      "published_at": "2026-11-08T14:00:19+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqqpdpA1n"
+    },
+    {
+      "id": "RqpCJFRj4",
+      "text": "我是幸福还是不幸？问题不重要。我如此热忱地生活着。\n人和事在等待着我，显然，我也在等待着人和事，等待着我的力量和我的悲伤的欲望。",
+      "from_who": "阿尔贝·加缪",
+      "from": "《加缪手记》",
+      "date": "2026-11-08",
+      "published_at": "2026-11-08T12:00:53+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqpCJFRj4"
+    },
+    {
+      "id": "RqoU3bbAh",
+      "text": "倘若我在全然交付自我之时学会去爱，那我终究寻得了自我。因为唯有爱，能将我们复原。",
+      "from_who": "阿尔贝·加缪",
+      "from": "《在是与非之间》",
+      "date": "2026-11-08",
+      "published_at": "2026-11-08T10:10:47+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqoU3bbAh"
+    },
+    {
+      "id": "RqofhxMJT",
+      "text": "任何东西，任何人都可能从你的生命中消失，你自己也可能消失——只要周围没有人真正了解你，没有人在生活跌宕与动魄惊心时仍坚定地与你在原地相见，没有人在你迷失方向甚至对着镜子也找不到自我时找到你。",
+      "from_who": "保拉·麦克莱恩",
+      "from": "《我不可能只是仰望你》",
+      "date": "2026-11-08",
+      "published_at": "2026-11-08T08:30:21+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqofhxMJT"
+    },
     {
       "id": "RqkUpmROM",
       "text": "愿我六根常寂静，心如宝月映琉璃。\n了法更无疑。",

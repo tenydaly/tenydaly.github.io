@@ -1,8 +1,28 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-08T10:40:13Z",
+  "updated_at": "2026-11-08T17:59:47Z",
   "quotes": [
+    {
+      "id": "RqukXckir",
+      "text": "我们在沸腾的时代一无所获\n只有些许灰烬想要倾倒",
+      "from_who": "李元胜",
+      "from": "《咖啡课》",
+      "date": "2026-11-09",
+      "published_at": "2026-11-09T00:00:48+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqukXckir"
+    },
+    {
+      "id": "RqsXCo1kx",
+      "text": "应该许许愿了，望着皎洁的月亮我想了想要许什么愿。\n只祈祷不要失去这颗心。",
+      "from_who": "韩江",
+      "from": "《植物妻子·序》",
+      "date": "2026-11-08",
+      "published_at": "2026-11-08T20:30:34+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqsXCo1kx"
+    },
     {
       "id": "RqrbPu0r4",
       "text": "你说你还不够成熟；\n那你是要等到腐烂吗？",

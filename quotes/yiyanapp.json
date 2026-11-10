@@ -1,8 +1,28 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-10T11:29:37Z",
+  "updated_at": "2026-11-10T19:54:05Z",
   "quotes": [
+    {
+      "id": "RqNbPuUce",
+      "text": "和你不同，我偷偷死过一次，又活第二次\n在这个幽寂的世界我一点也不慌张",
+      "from_who": "廖伟棠",
+      "from": "《立秋》",
+      "date": "2026-11-11",
+      "published_at": "2026-11-11T00:00:31+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqNbPuUce"
+    },
+    {
+      "id": "RqLOrchV2",
+      "text": "接受现实，像山谷收容雪，巨大的雪其实很重，接受现实需要巨大的力气，改变虚构的力气，万事万物都是以此事此物为核心的世界的核心，事物与自身相距最远。",
+      "from_who": "倪湛舸",
+      "from": "《雪是谁说的谎》",
+      "date": "2026-11-10",
+      "published_at": "2026-11-10T20:30:08+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqLOrchV2"
+    },
     {
       "id": "RqK2S9pn6",
       "text": "我们跟世界上的大多数人一样，都是在叫嚷与沉默的交替中长大。我们之中的一些人自己做出了决定，另一些则承受了别人的决定。",

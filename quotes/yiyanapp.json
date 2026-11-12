@@ -1,8 +1,78 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-11T19:46:38Z",
+  "updated_at": "2026-11-12T20:14:13Z",
   "quotes": [
+    {
+      "id": "Rr62JzXQo",
+      "text": "宇宙的本性要我有的，我已经拥有；\n我的本性要求我做的，我也正在做。",
+      "from_who": "马可·奥勒留",
+      "from": "《沉思录》",
+      "date": "2026-11-13",
+      "published_at": "2026-11-13T00:00:18+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rr62JzXQo"
+    },
+    {
+      "id": "Rr4FyA8IW",
+      "text": "在你与世界的斗争中，世界是第二位的。",
+      "from_who": "弗兰茨·卡夫卡",
+      "from": "《蓝色八开笔记本》",
+      "date": "2026-11-12",
+      "published_at": "2026-11-12T20:30:27+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rr4FyA8IW"
+    },
+    {
+      "id": "Rr2Ub2IZI",
+      "text": "我反对的是，只从“结果”这个词去看待任何事。我需要无止境地开放，也需要那样一种并非由饲料构成的生活。",
+      "from_who": "埃利亚斯·卡内蒂",
+      "from": "《人的疆域》",
+      "date": "2026-11-12",
+      "published_at": "2026-11-12T16:00:58+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rr2Ub2IZI"
+    },
+    {
+      "id": "Rr29deOdI",
+      "text": "小剂量的焦虑会使我们变得好奇、敏感和清醒。",
+      "from_who": "克里斯托夫·安德烈",
+      "from": "《自尊与自忘》",
+      "date": "2026-11-12",
+      "published_at": "2026-11-12T14:05:16+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rr29deOdI"
+    },
+    {
+      "id": "Rr1kopVBm",
+      "text": "你又来普度众生了，也许我还没堕落呢。",
+      "from_who": "陀思妥耶夫斯基",
+      "from": "《卡拉马佐夫兄弟》",
+      "date": "2026-11-12",
+      "published_at": "2026-11-12T12:00:04+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rr1kopVBm"
+    },
+    {
+      "id": "Rr0BJkouG",
+      "text": "无处可逃。\n除非我们避开爱，否则我们无法避开失去。",
+      "from_who": "珍妮特·温特森",
+      "from": "《想想我们所爱之人》",
+      "date": "2026-11-12",
+      "published_at": "2026-11-12T10:10:02+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rr0BJkouG"
+    },
+    {
+      "id": "RqZXktnlr",
+      "text": "由于那特殊的另一个人进入了你的生活，你觉得完整了，这是很浪漫的说法。但关系的目的不是有另一个人去使你完整；而是与另一个人一起分享你的完整。",
+      "from_who": "尼尔·唐纳德·沃尔什",
+      "from": "《与神对话》",
+      "date": "2026-11-12",
+      "published_at": "2026-11-12T08:30:30+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RqZXktnlr"
+    },
     {
       "id": "RqWC9pWXI",
       "text": "冬天是真的来了，寒流让山峦安静。在一切的峰顶，当生命面临最严酷的冰纪，我也将安静。",

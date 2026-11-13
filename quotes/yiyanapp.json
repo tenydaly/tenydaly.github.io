@@ -1,8 +1,58 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-12T20:14:13Z",
+  "updated_at": "2026-11-13T11:22:17Z",
   "quotes": [
+    {
+      "id": "Rrcknx8GS",
+      "text": "你终于到达\n云朵停靠的星期天",
+      "from_who": "北岛",
+      "from": "《休息》",
+      "date": "2026-11-13",
+      "published_at": "2026-11-13T16:00:15+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rrcknx8GS"
+    },
+    {
+      "id": "RrbxNhoho",
+      "text": "创造了某种东西的人永远都不会孤单：一本书、一幅画、一家公司、一家工厂，都是能留下来的东西。",
+      "from_who": "阿尔芭·德·塞斯佩德斯",
+      "from": "《秘密笔记》",
+      "date": "2026-11-13",
+      "published_at": "2026-11-13T14:00:33+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RrbxNhoho"
+    },
+    {
+      "id": "RraLg3mbT",
+      "text": "现在的我这样做，并不是因为你……而只是因为，我是一个这样的人。无论做什么，我都无法不认真去做，无法不用爱去做。这一切，是为你，然而，并非是为了得到你的爱而做的。",
+      "from_who": "阮筠庭",
+      "from": "《春晖》",
+      "date": "2026-11-13",
+      "published_at": "2026-11-13T12:00:58+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RraLg3mbT"
+    },
+    {
+      "id": "Rra2ofjZF",
+      "text": "一个人肚子空空，心事重重，总是睡不好觉的。",
+      "from_who": "E.B.怀特",
+      "from": "《夏洛的网》",
+      "date": "2026-11-13",
+      "published_at": "2026-11-13T10:10:26+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rra2ofjZF"
+    },
+    {
+      "id": "Rr9nYdt3c",
+      "text": "当你获胜的意愿超出对失败的恐惧时，你就有机会了。害怕的人是不会赢的。",
+      "from_who": "弗雷德里克·巴克曼",
+      "from": "《熊镇》",
+      "date": "2026-11-13",
+      "published_at": "2026-11-13T08:30:51+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rr9nYdt3c"
+    },
     {
       "id": "Rr62JzXQo",
       "text": "宇宙的本性要我有的，我已经拥有；\n我的本性要求我做的，我也正在做。",

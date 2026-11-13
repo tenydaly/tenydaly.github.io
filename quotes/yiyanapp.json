@@ -1,8 +1,28 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-13T11:22:17Z",
+  "updated_at": "2026-11-13T19:55:20Z",
   "quotes": [
+    {
+      "id": "Rrftp4kGq",
+      "text": "宁静是透明的膜，像臭氧层保护我们的身体。像水和阳光，对于生命不可或缺。",
+      "from_who": "金爱烂",
+      "from": "《你的夏天还好吗》",
+      "date": "2026-11-14",
+      "published_at": "2026-11-14T00:00:43+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rrftp4kGq"
+    },
+    {
+      "id": "Rre638u98",
+      "text": "我们静静地坐着，看着周围的世界，一句话也不说，但仍感到满足。沉默无比纯净无比神圣，它让人们的心紧密相连，因为只有彼此相处自在的人才可以一言不发的坐在一起。这是一个美妙的自相矛盾。",
+      "from_who": "斯帕克思",
+      "from": "《恋恋笔记本》",
+      "date": "2026-11-13",
+      "published_at": "2026-11-13T20:30:26+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rre638u98"
+    },
     {
       "id": "Rrcknx8GS",
       "text": "你终于到达\n云朵停靠的星期天",

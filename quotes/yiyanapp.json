@@ -1,8 +1,28 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-15T11:21:20Z",
+  "updated_at": "2026-11-15T19:00:07Z",
   "quotes": [
+    {
+      "id": "Rrykp6dt8",
+      "text": "我在冬天的雨中奔腾\n我的胸脯上藏有明天早晨",
+      "from_who": "海子",
+      "from": "《冬天的雨》",
+      "date": "2026-11-16",
+      "published_at": "2026-11-16T00:00:44+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/Rrykp6dt8"
+    },
+    {
+      "id": "RrwWYESJn",
+      "text": "是的，不同的你重叠着\n有时和解，有时冲突\n我爱着，它们之间的缝隙\n点点野花悄然生长\n我也爱着，它们交错时形成的——\n破碎、弯曲的夜空\n上面缀满陌生的星星",
+      "from_who": "李元胜",
+      "from": "《给》",
+      "date": "2026-11-15",
+      "published_at": "2026-11-15T20:30:17+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RrwWYESJn"
+    },
     {
       "id": "RrvbzohQA",
       "text": "作家会寻找各种方式来确保自己的孤独，然后再寻找无数方式来浪费它。",

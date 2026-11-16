@@ -1,8 +1,28 @@
 {
   "source": "一言App",
   "uid": "5581983697",
-  "updated_at": "2026-11-16T11:52:56Z",
+  "updated_at": "2026-11-16T22:24:15Z",
   "quotes": [
+    {
+      "id": "RrHKEA91s",
+      "text": "经过许多个冬天之后，我才渐渐明白自己再躲不过雪。无论，我蜷缩在屋子里，还是远在冬天的另外一个地方，纷纷扬扬的雪，都会落在我正经历的一段岁月里。",
+      "from_who": "刘亮程",
+      "from": "",
+      "date": "2026-11-17",
+      "published_at": "2026-11-17T00:00:08+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RrHKEA91s"
+    },
+    {
+      "id": "RrGnGfwwn",
+      "text": "生活的目的不是要到达某个地方，而是要觉察你长期所在的位置。你的生活永恒地处于纯粹的创造之中。所以，生活的目的是创造——创造你自己，创造你所是的生活，然后体验它。",
+      "from_who": "尼尔·唐纳德·沃尔什",
+      "from": "《与神对话》",
+      "date": "2026-11-16",
+      "published_at": "2026-11-16T20:30:47+08:00",
+      "source_account": "一言App",
+      "source_url": "https://weibo.com/5581983697/RrGnGfwwn"
+    },
     {
       "id": "RrEBMvro8",
       "text": "只有独自流下的泪水才会灼人。",
